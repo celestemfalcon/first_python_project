@@ -42,7 +42,7 @@ for column in all_recipes.columns:
 for column, unique_list in unique_entries_per_column.items():
     print(f"Unique entries in '{column}': {unique_list}")
 
-
+########## Who is most prolific?
 # Create the bar plot
 plt.bar(all_recipes['author'], all_recipes['author'].count())
 
@@ -56,12 +56,12 @@ plt.show()
 
 
 # Actually count number of entries for each author
-    counts = all_recipes['author'].value_counts()
-    print(counts)
+counts = all_recipes['author'].value_counts()    
+print(counts)
     
-    counts = pd.DataFrame(counts)
-    counts = counts.reset_index()
-    counts = counts.rename(columns={'index': 'author', 'count': 'number_of_recipes'})
+counts = pd.DataFrame(counts)
+counts = counts.reset_index()
+counts = counts.rename(columns={'index': 'author', 'count': 'number_of_recipes'})
 
 
 plt.bar(counts['author'], counts['number_of_recipes'])
@@ -101,9 +101,72 @@ plt.xticks(rotation=45, ha='right') # Rotate x-axis labels for better readabilit
 plt.tight_layout() # Adjust layout to prevent labels from being cut off
 plt.show()
 
+##########  Who has the highest average ratings? or popularity?
+mean_avg_ratings = pd.DataFrame(all_recipes.groupby('author')['avg_rating'].mean())
+mean_avg_ratings_sorted = mean_avg_ratings.sort_values(by='avg_rating', ascending=False)
+top_avg_ratings = mean_avg_ratings_sorted.head(10)
+top_avg_ratings = top_avg_ratings.reset_index()
+top_avg_ratings = top_avg_ratings.rename(columns={'index': 'author', 'count': 'avg_rating'})
+
+top_avg_ratings.plot(kind='bar', x='author', legend=False)
+plt.xlabel('Author')
+plt.ylabel('Average rating')
+plt.title('Top 10 authors by average rating')
+plt.xticks(rotation=45, ha='right') # Rotate x-axis labels for better readability
+plt.tight_layout() # Adjust layout to prevent labels from being cut offplt.show()
+plt.show()
+
+sum_total_ratings = pd.DataFrame(all_recipes.groupby('author')['total_ratings'].sum())
+sum_total_ratings_sorted = sum_total_ratings.sort_values(by='total_ratings', ascending=False)
+top_total_ratings = sum_total_ratings_sorted.head(10)
+top_total_ratings = top_total_ratings.reset_index()
+top_total_ratings = top_total_ratings.rename(columns={'index': 'author', 'count': 'total_ratings'})
+    
+top_total_ratings.plot(kind='bar', x='author', legend=False)
+plt.xlabel('Author')
+plt.ylabel('Average rating')
+plt.title('Top 10 authors by total rating values')
+plt.xticks(rotation=45, ha='right') # Rotate x-axis labels for better readability
+plt.tight_layout() # Adjust layout to prevent labels from being cut offplt.show()
+plt.show()
+
+########## Do top authors specialize by cuisine, ingredient, or recipe length?
+authors_to_include = top_total_ratings['author']
+cuisines_top_authors = cuisines[cuisines['author'].isin(authors_to_include)]
+cuisines_top_authors_count = cuisines_top_authors.groupby(['author', 'country']).size()
+
+
+### below is a work in progress ###
+plt.bar(cuisines_top_authors_count['country'], segment1_data, label='Segment 1')
+plt.xticks(rotation=45, ha='right') # Rotate x-axis labels for better readability
+plt.show()
+    
+    
+import numpy as np
+categories = ['Category A', 'Category B', 'Category C']
+segment1_data = [10, 15, 7]
+segment2_data = [5, 8, 12]
+segment3_data = [3, 6, 9]
+    
+plt.figure(figsize=(8, 6)) # Optional: set figure size
+plt.bar(categories, segment1_data, label='Segment 1')
+plt.bar(categories, segment2_data, bottom=segment1_data, label='Segment 2')
+plt.bar(categories, segment3_data, bottom=np.array(segment1_data) + np.array(segment2_data), label='Segment 3')
+    
+plt.ylabel('Values')
+plt.title('Stacked Bar Chart Example')
+plt.legend()
+plt.show()
+        
+## or use pandas plotting
+df.plot(x='Category', kind='bar', stacked=True, title='Stacked Bar Chart from DataFrame')
+plt.ylabel('Values')
+plt.show()
+    
 
 
 # Is there a relationship between prep/cook time and average rating?
 # Which recipe categories or cuisines tend to have the highest average ratings and review counts?
 # Which recipes are the most "actionable" — high rating with low total time?
+
 
