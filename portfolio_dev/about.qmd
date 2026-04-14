@@ -1,0 +1,5 @@
+---
+title: "About"
+---
+
+Celeste Falcon is a biostatistician with experience in agricultural research (plant breeding/quantitative genetics, biologicals discovery & development) and applied statistical consulting. She holds a PhD in Applied Plant Sciences from the [University of Minnesota, Twin Cities](https://twin-cities.umn.edu/) and a BS in Plant Science from [Cornell University](https://www.cornell.edu/). Previously, she was a biostatistician at [Bayer Crop Science](https://www.bayer.com/en/agriculture-overview) and [Ginkgo Bioworks](https://ag.ginkgo.bio/).\
