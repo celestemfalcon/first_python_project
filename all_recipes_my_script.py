@@ -162,37 +162,13 @@ plt.show()
 df.plot(x='Category', kind='bar', stacked=True, title='Stacked Bar Chart from DataFrame')
 plt.ylabel('Values')
 plt.show()
-### ^^ above is a work in progress ###
-
+    
 
 # Is there a relationship between prep/cook time and average rating?
-all_recipes.plot.scatter(x = 'prep_time', y = 'avg_rating')
-plt.show()
 
-all_recipes.plot.scatter(x = 'cook_time', y = 'avg_rating')
-plt.show()
 
-all_recipes.plot.scatter(x = 'total_time', y = 'avg_rating')
-plt.show()
-
-## TODO: work on removing the outlier recipe (wine)
-## TODO: work on filtering to recipes with some maximum total time (a lot of higher ones are canning, fermenting)
 
 # Which recipe categories or cuisines tend to have the highest average ratings and review counts?
-plt.clf()
-cuisines.boxplot(column = "avg_rating", by = ['country'])
-plt.xticks(rotation=45, ha='right') # Rotate x-axis labels for better readability
-plt.show()
-
-plt.clf()
-cuisines.boxplot(column = "reviews", by = ['country'])
-plt.xticks(rotation=45, ha='right') # Rotate x-axis labels for better readability
-plt.show()
-
-#TODO: now sort the xaxis by the median y value for the above 2 boxplots
-
 # Which recipes are the most "actionable" — high rating with low total time?
-all_recipes.plot.scatter(x = 'avg_rating', y = 'total_time')
-plt.ylim(0,30)
-plt.show()
+
 
